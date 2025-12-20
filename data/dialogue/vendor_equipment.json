@@ -1,0 +1,40 @@
+{
+	"tree_id": "vendor_equipment",
+	"npc_id": "equipment_vendor",
+	"name": "Equipment Vendor",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "npc",
+			"text": "Looking to gear up? I've got what you need.",
+			"choices": [
+				{
+					"text": "Show me what you've got",
+					"events": [
+						{
+							"type": "open_shop",
+							"params": {
+								"shop_id": "equipment_shop"
+							}
+						}
+					]
+				},
+				{
+					"text": "I want to sell some gear",
+					"events": [
+						{
+							"type": "open_shop",
+							"params": {
+								"shop_id": "equipment_shop",
+								"mode": "sell"
+							}
+						}
+					]
+				},
+				{
+					"text": "Just browsing"
+				}
+			]
+		}
+	]
+}

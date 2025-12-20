@@ -1,0 +1,129 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqiliuiehv6hm"]
+
+[ext_resource type="Script" path="res://scenes/ui/title_menu.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://dgo3hfd7d3lfw" path="res://resources/themes/theme_standard.tres" id="2_theme_standard"]
+[ext_resource type="Theme" uid="uid://bariyh1msleyw" path="res://resources/themes/theme_title.tres" id="3_theme_title"]
+[ext_resource type="Theme" uid="uid://d15x5jyb5fxuu" path="res://resources/themes/theme_hud.tres" id="4_m1v3m"]
+
+[node name="TitleMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme_standard")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.12, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -180.0
+offset_right = 200.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="TitleContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_theme_title")
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_font_sizes/font_size = 56
+text = "PIONEER ONLINE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+theme_override_font_sizes/font_size = 16
+text = "Live Service Test Build"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="SteamStatus" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Steam: Checking..."
+horizontal_alignment = 1
+
+[node name="SteamName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="ConnectionStatus" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Not connected"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HubButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_font_sizes/font_size = 20
+text = "Enter Hub"
+
+[node name="TestButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_font_sizes/font_size = 20
+text = "Test Map (Dev)"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme = ExtResource("4_m1v3m")
+theme_override_font_sizes/font_size = 20
+text = "Quit"
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 250.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.35, 0.35, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "v0.1.0 - Development Build"

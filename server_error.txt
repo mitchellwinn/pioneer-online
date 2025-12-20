@@ -1,0 +1,8 @@
+SCRIPT ERROR: Parse Error: Could not resolve class "ActionEntity".
+          at: GDScript::reload (res://addons/gsg-godot-plugins/action_entities/scripts/action_npc.gd:2)
+ERROR: Failed to load script "res://addons/gsg-godot-plugins/action_entities/scripts/action_npc.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2936)
+WARNING: [MusicManager] songs.json not found anywhere in project
+     at: push_warning (core/variant/variant_utility.cpp:1112)
+WARNING: [SteamManager] Steam init failed: No appID found.  Either launch the game from Steam, or put the file steam_appid.txt containing the correct appID in your game folder. - running in MOCK mode
+     at: push_warning (core/variant/variant_utility.cpp:1112)

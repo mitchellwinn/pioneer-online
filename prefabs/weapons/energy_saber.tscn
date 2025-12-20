@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://energy_saber_prefab"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/melee_weapon_component.gd" id="1_melee"]
+
+[sub_resource type="StandardMaterial3D" id="mat_hilt"]
+albedo_color = Color(0.15, 0.15, 0.2, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="mat_blade"]
+transparency = 1
+albedo_color = Color(0.3, 0.9, 1.0, 0.9)
+emission_enabled = true
+emission = Color(0.2, 0.8, 1.0, 1)
+emission_energy_multiplier = 3.0
+rim_enabled = true
+rim = 1.0
+rim_tint = 0.5
+
+[sub_resource type="StandardMaterial3D" id="mat_core"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.95)
+emission_enabled = true
+emission = Color(0.8, 0.95, 1.0, 1)
+emission_energy_multiplier = 5.0
+
+[node name="EnergySaber" type="Node3D"]
+script = ExtResource("1_melee")
+item_id = "energy_saber_01"
+weapon_name = "Energy Saber"
+holster_slot = "hip_left"
+damage = 45.0
+damage_type = "energy"
+attack_speed = 2.0
+attack_range = 1.8
+knockback_force = 10.0
+hitstun_duration = 0.25
+hitbox_size = Vector3(0.15, 0.15, 0.8)
+hitbox_offset = Vector3(0, 0, -0.5)
+
+[node name="WeaponModel" type="Node3D" parent="."]
+
+[node name="Hilt" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0.12)
+material_override = SubResource("mat_hilt")
+radius = 0.02
+height = 0.25
+
+[node name="HiltRing1" type="CSGTorus3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+material_override = SubResource("mat_hilt")
+inner_radius = 0.018
+outer_radius = 0.028
+
+[node name="HiltRing2" type="CSGTorus3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.22)
+material_override = SubResource("mat_hilt")
+inner_radius = 0.018
+outer_radius = 0.028
+
+[node name="Guard" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02)
+material_override = SubResource("mat_hilt")
+size = Vector3(0.12, 0.025, 0.025)
+
+[node name="Emitter" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.04)
+material_override = SubResource("mat_hilt")
+radius = 0.025
+height = 0.03
+
+[node name="Blade" type="Node3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.08)
+
+[node name="BladeOuter" type="CSGCylinder3D" parent="WeaponModel/Blade"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.4)
+material_override = SubResource("mat_blade")
+radius = 0.018
+height = 0.8
+
+[node name="BladeCore" type="CSGCylinder3D" parent="WeaponModel/Blade"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.4)
+material_override = SubResource("mat_core")
+radius = 0.008
+height = 0.82
+
+[node name="BladeTip" type="CSGSphere3D" parent="WeaponModel/Blade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+material_override = SubResource("mat_blade")
+radius = 0.02
+
+[node name="GripPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.12)
+

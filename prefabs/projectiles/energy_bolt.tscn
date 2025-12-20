@@ -1,0 +1,112 @@
+[gd_scene load_steps=4 format=3 uid="uid://energy_bolt_projectile"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bolt"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.2, 0.8, 1.0, 0.9)
+emission_enabled = true
+emission = Color(0.0, 0.7, 1.0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bolt"]
+radius = 0.05
+height = 0.3
+
+[sub_resource type="GDScript" id="GDScript_bolt"]
+script/source = "extends Area3D
+class_name EnergyBolt
+
+## Energy projectile that damages on contact
+
+@export var speed: float = 150.0
+@export var damage: float = 25.0
+@export var damage_type: String = \"energy\"
+@export var lifetime: float = 3.0
+@export var impact_effect: PackedScene
+
+var velocity: Vector3 = Vector3.ZERO
+var owner_entity: Node = null
+var _lifetime_timer: float = 0.0
+
+func _ready():
+	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
+	
+	# Set collision layers
+	collision_layer = 4  # Projectiles layer
+	collision_mask = 1 | 2  # Environment | Entities
+
+func _physics_process(delta: float):
+	# Move projectile
+	global_position += velocity * delta
+	
+	# Lifetime
+	_lifetime_timer += delta
+	if _lifetime_timer >= lifetime:
+		_destroy()
+
+func initialize(vel: Vector3, dmg: float, dmg_type: String, owner: Node):
+	velocity = vel
+	damage = dmg
+	damage_type = dmg_type
+	owner_entity = owner
+	
+	# Look in direction of travel
+	if velocity.length() > 0.1:
+		look_at(global_position + velocity.normalized())
+
+func _on_body_entered(body: Node3D):
+	if body == owner_entity:
+		return
+	
+	_hit(body)
+
+func _on_area_entered(area: Area3D):
+	if area.get_parent() == owner_entity:
+		return
+	
+	# Check for hitboxes
+	if area.has_method(\"register_hit\"):
+		area.register_hit(damage, damage_type, owner_entity)
+		_destroy()
+
+func _hit(target: Node):
+	# Apply damage
+	if target.has_method(\"take_damage\"):
+		target.take_damage(damage, owner_entity, damage_type)
+	
+	# Spawn impact effect
+	if impact_effect:
+		var effect = impact_effect.instantiate()
+		get_tree().current_scene.add_child(effect)
+		effect.global_position = global_position
+	
+	_destroy()
+
+func _destroy():
+	queue_free()
+"
+
+[node name="EnergyBolt" type="Area3D"]
+script = SubResource("GDScript_bolt")
+speed = 150.0
+damage = 25.0
+damage_type = "energy"
+lifetime = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_bolt")
+
+[node name="BoltMesh" type="CSGCapsule3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_bolt")
+radius = 0.03
+height = 0.2
+
+[node name="GlowLight" type="OmniLight3D" parent="."]
+light_color = Color(0.2, 0.8, 1, 1)
+light_energy = 0.5
+omni_range = 2.0
+omni_attenuation = 2.0
+

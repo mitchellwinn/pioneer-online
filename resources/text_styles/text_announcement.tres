@@ -1,0 +1,14 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3]
+
+[ext_resource type="FontFile" uid="uid://kyokan_font_2" path="res://fonts/cousagifont-kyokan/é¦éñé¦é¼âtâHâôâgï¦è+.ttf" id="1_font"]
+
+[resource]
+font = ExtResource("1_font")
+font_size = 48
+font_color = Color(1, 0.85, 0.2, 1)
+outline_size = 3
+outline_color = Color(0.15, 0.1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_offset = Vector2(3, 3)
+

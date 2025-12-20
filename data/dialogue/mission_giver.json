@@ -1,0 +1,298 @@
+{
+	"tree_id": "mission_giver_main",
+	"npc_id": "mission_control",
+	"name": "Mission Control",
+	"nodes": [
+		{
+			"id": "greeting",
+			"speaker": "npc",
+			"text": "Welcome, Operative. Ready for deployment?",
+			"choices": [
+				{
+					"text": "Show me available missions",
+					"goto": "mission_list"
+				},
+				{
+					"text": "What's my current mission status?",
+					"goto": "status_check"
+				},
+				{
+					"text": "Just passing through"
+				}
+			]
+		},
+		{
+			"id": "mission_list",
+			"speaker": "npc",
+			"text": "Here are your current deployment options. Choose wisely - each requires different preparation.",
+			"choices": [
+				{
+					"text": "Survey Planet in Orbit",
+					"goto": "mission_survey"
+				},
+				{
+					"text": "Rescue Operative",
+					"goto": "mission_rescue"
+				},
+				{
+					"text": "Deep Extraction Mandate",
+					"goto": "mission_extraction"
+				},
+				{
+					"text": "Back",
+					"goto": "greeting"
+				}
+			]
+		},
+		{
+			"id": "mission_survey",
+			"speaker": "npc",
+			"text": "A Heavy Propulsion Surveillance Rod will be rocketed down to the planet surface. Its impact zone will be somewhat random, but you should be able to track its signal with your scanner.",
+			"next": "mission_survey_2"
+		},
+		{
+			"id": "mission_survey_2",
+			"speaker": "npc",
+			"text": "Your objective: Locate the rod and retrieve the sample payload. Then find a location with clear weather conditions to establish uplink with our ship in orbit. We'll beam you back once connection is confirmed.",
+			"choices": [
+				{
+					"text": "Deploy now",
+					"events": [
+						{
+							"type": "start_mission",
+							"params": {
+								"mission_id": "survey_planet"
+							}
+						}
+					]
+				},
+				{
+					"text": "What equipment should I bring?",
+					"goto": "survey_tips"
+				},
+				{
+					"text": "Back to missions",
+					"goto": "mission_list"
+				}
+			]
+		},
+		{
+			"id": "survey_tips",
+			"speaker": "npc",
+			"text": "It's in your best interest to have a backup plan incase you are interrupted during the mission. Be sure to bring medical supplies and light weaponry.",
+			"next": "mission_survey_2"
+		},
+		{
+			"id": "mission_rescue",
+			"speaker": "npc",
+			"text": "We're deploying you as a Combat Medic. You'll receive a Medic Badge and enhanced assistive capabilities.",
+			"next": "mission_rescue_2"
+		},
+		{
+			"id": "mission_rescue_2",
+			"speaker": "npc",
+			"text": "Your role is to assist operatives from OTHER squads who are down. Each successful field heal earns you Medic Credits.",
+			"next": "mission_rescue_3"
+		},
+		{
+			"id": "mission_rescue_3",
+			"speaker": "npc",
+			"text": "Note: Healing your own squad doesn't count toward rewards. We need you out there helping strangers to foster goodwill across all operations.",
+			"choices": [
+				{
+					"text": "Deploy as Medic",
+					"events": [
+						{
+							"type": "start_mission",
+							"params": {
+								"mission_id": "rescue_operative",
+								"role": "medic"
+							}
+						}
+					]
+				},
+				{
+					"text": "What can I spend Medic Credits on?",
+					"goto": "medic_rewards"
+				},
+				{
+					"text": "Back to missions",
+					"goto": "mission_list"
+				}
+			]
+		},
+		{
+			"id": "medic_rewards",
+			"speaker": "npc",
+			"text": "Medic Credits can be used to purchase discounted medical equipment from a medical vendor or exchanged for common currency.",
+			"next": "mission_rescue_3"
+		},
+		{
+			"id": "mission_extraction",
+			"speaker": "npc",
+			"text": "Deep Extraction Mandate. We've deployed a Heavy Bore Drill to the planet surface. This thing punches straight through the crust into cavernous networks below.",
+			"next": "mission_extraction_2"
+		},
+		{
+			"id": "mission_extraction_2",
+			"speaker": "npc",
+			"text": "Your objective: Locate the drill site and descend into the caverns. Down there you'll find rare earth minerals, crystalline deposits, and... other things. Creatures that haven't seen daylight in millennia.",
+			"next": "mission_extraction_3"
+		},
+		{
+			"id": "mission_extraction_3",
+			"speaker": "npc",
+			"text": "You can go for a long time and find increasingly rare materials, but it will be more difficult to return in one piece.",
+			"choices": [
+				{
+					"text": "Deploy for Deep Extraction",
+					"events": [
+						{
+							"type": "start_mission",
+							"params": {
+								"mission_id": "deep_extraction"
+							}
+						}
+					]
+				},
+				{
+					"text": "How do I get back out?",
+					"goto": "extraction_exit"
+				},
+				{
+					"text": "What's down there exactly?",
+					"goto": "extraction_creatures"
+				},
+				{
+					"text": "Back to missions",
+					"goto": "mission_list"
+				}
+			]
+		},
+		{
+			"id": "extraction_exit",
+			"speaker": "npc",
+			"text": "You'll need to return back to the drill, though the ascent is often much more trivial than the descent, so you must exercise caution.",
+			"next": "mission_extraction_3"
+		},
+		{
+			"id": "extraction_creatures",
+			"speaker": "npc",
+			"text": "Subterranean predators. Blind, but with incredible senses. They are all in some way territorial and will attack if they feel threatened.",
+			"next": "mission_extraction_3"
+		},
+		{
+			"id": "status_check",
+			"speaker": "npc",
+			"text": "Checking your deployment record...",
+			"conditional_next": [
+				"status_survey",
+				"status_rescue",
+				"status_extraction",
+				"status_result"
+			]
+		},
+		{
+			"id": "status_result",
+			"speaker": "npc",
+			"text": "You have no active deployments. Ready when you are.",
+			"condition": {
+				"active_mission": null
+			},
+			"next": "greeting"
+		},
+		{
+			"id": "status_survey",
+			"speaker": "npc",
+			"text": "You're currently deployed on Survey Planet in Orbit. Locate the Surveillance Rod, retrieve the payload, and find clear weather for extraction.",
+			"condition": {
+				"active_mission": "survey_planet"
+			},
+			"choices": [
+				{
+					"text": "Remind me about the mission",
+					"goto": "mission_survey"
+				},
+				{
+					"text": "I want to abandon this mission",
+					"goto": "abandon_confirm"
+				},
+				{
+					"text": "Got it",
+					"goto": "greeting"
+				}
+			]
+		},
+		{
+			"id": "status_rescue",
+			"speaker": "npc",
+			"text": "You're deployed as a Combat Medic on Rescue Operative. Assist operatives from other squads to earn Medic Credits.",
+			"condition": {
+				"active_mission": "rescue_operative"
+			},
+			"choices": [
+				{
+					"text": "Remind me about the mission",
+					"goto": "mission_rescue"
+				},
+				{
+					"text": "I want to abandon this mission",
+					"goto": "abandon_confirm"
+				},
+				{
+					"text": "Got it",
+					"goto": "greeting"
+				}
+			]
+		},
+		{
+			"id": "status_extraction",
+			"speaker": "npc",
+			"text": "You're on a Deep Extraction Mandate. The Heavy Bore Drill is waiting. Descend, gather resources, and return before it's too late.",
+			"condition": {
+				"active_mission": "deep_extraction"
+			},
+			"choices": [
+				{
+					"text": "Remind me about the mission",
+					"goto": "mission_extraction"
+				},
+				{
+					"text": "I want to abandon this mission",
+					"goto": "abandon_confirm"
+				},
+				{
+					"text": "Got it",
+					"goto": "greeting"
+				}
+			]
+		},
+		{
+			"id": "abandon_confirm",
+			"speaker": "npc",
+			"text": "Are you sure? Abandoning a mission means forfeiting any progress and potential rewards.",
+			"choices": [
+				{
+					"text": "Yes, abandon the mission",
+					"events": [
+						{
+							"type": "abandon_mission",
+							"params": {}
+						}
+					],
+					"goto": "abandon_complete"
+				},
+				{
+					"text": "No, I'll continue",
+					"goto": "greeting"
+				}
+			]
+		},
+		{
+			"id": "abandon_complete",
+			"speaker": "npc",
+			"text": "Mission abandoned. Your deployment record has been updated. Come back when you're ready for a new assignment.",
+			"next": "greeting"
+		}
+	]
+}

@@ -1,0 +1,154 @@
+{
+	"items": [
+		{
+			"id": "energy_rifle_01",
+			"name": "Pulse Cannon",
+			"description": "Devastating single-shot energy weapon. Packs a massive punch with significant knockback.",
+			"type": "weapon",
+			"subtype": "rifle",
+			"size": "large",
+			"rarity": "uncommon",
+			"base_value": 800,
+			"weapon_data": {
+				"damage": 85,
+				"damage_type": "energy",
+				"fire_rate": 0.8,
+				"fire_mode": "semi",
+				"range": 150.0,
+				"clip_size": 1,
+				"max_ammo": 20,
+				"reload_type": "magazine",
+				"reload_time": 1.2,
+				"projectile_prefab": "res://prefabs/projectiles/energy_bolt.tscn",
+				"muzzle_velocity": 200.0,
+				"spread_hip": 1.5,
+				"spread_aim": 0.2,
+				"recoil_vertical": 8.0,
+				"recoil_horizontal": 2.0,
+				"aim_zoom": 2.0,
+				"aim_time": 0.3,
+				"knockback_force": 15.0,
+				"hitstun_duration": 0.5
+			},
+			"holster_slot": "back_primary",
+			"prefab_path": "res://prefabs/weapons/energy_rifle.tscn"
+		},
+		{
+			"id": "energy_pistol_01",
+			"name": "Sidearm",
+			"description": "Compact energy pistol for close encounters.",
+			"type": "weapon",
+			"subtype": "pistol",
+			"size": "small",
+			"rarity": "common",
+			"base_value": 200,
+			"weapon_data": {
+				"damage": 15,
+				"damage_type": "energy",
+				"fire_rate": 5.0,
+				"fire_mode": "semi",
+				"range": 50.0,
+				"clip_size": 12,
+				"max_ammo": 60,
+				"reload_type": "magazine",
+				"reload_time": 1.5,
+				"projectile_prefab": "res://prefabs/projectiles/energy_bolt_small.tscn",
+				"muzzle_velocity": 120.0,
+				"spread_hip": 2.0,
+				"spread_aim": 0.3,
+				"recoil_vertical": 3.0,
+				"recoil_horizontal": 1.0,
+				"aim_zoom": 1.2,
+				"aim_time": 0.15
+			},
+			"holster_slot": "hip_right",
+			"prefab_path": "res://prefabs/weapons/energy_pistol.tscn"
+		},
+		{
+			"id": "plasma_smg_01",
+			"name": "Plasma Repeater",
+			"description": "High fire-rate plasma weapon that overheats instead of reloading.",
+			"type": "weapon",
+			"subtype": "smg",
+			"size": "medium",
+			"rarity": "uncommon",
+			"base_value": 750,
+			"weapon_data": {
+				"damage": 12,
+				"damage_type": "plasma",
+				"fire_rate": 15.0,
+				"fire_mode": "auto",
+				"range": 40.0,
+				"clip_size": 100,
+				"max_ammo": -1,
+				"reload_type": "overheat",
+				"heat_per_shot": 2.5,
+				"overheat_threshold": 100.0,
+				"cooldown_rate": 30.0,
+				"overheat_lockout": 2.0,
+				"projectile_prefab": "res://prefabs/projectiles/plasma_bolt.tscn",
+				"muzzle_velocity": 100.0,
+				"spread_hip": 4.0,
+				"spread_aim": 1.5,
+				"recoil_vertical": 1.0,
+				"recoil_horizontal": 0.8,
+				"aim_zoom": 1.1,
+				"aim_time": 0.1
+			},
+			"holster_slot": "back_secondary",
+			"prefab_path": "res://prefabs/weapons/plasma_smg.tscn"
+		},
+		{
+			"id": "energy_saber_01",
+			"name": "Energy Saber",
+			"description": "A blade of concentrated energy. Swift and deadly in close quarters.",
+			"type": "weapon",
+			"subtype": "melee",
+			"size": "medium",
+			"rarity": "uncommon",
+			"base_value": 600,
+			"weapon_data": {
+				"damage": 45,
+				"damage_type": "energy",
+				"attack_speed": 2.0,
+				"attack_range": 1.8,
+				"knockback_force": 10.0,
+				"hitstun_duration": 0.25,
+				"can_block": true,
+				"block_damage_reduction": 0.7
+			},
+			"holster_slot": "hip_left",
+			"prefab_path": "res://prefabs/weapons/energy_saber.tscn"
+		}
+	],
+	"holster_slots": {
+		"large": [
+			"back_primary",
+			"back_secondary"
+		],
+		"medium": [
+			"hip_right",
+			"hip_left",
+			"back_lower"
+		],
+		"small": [
+			"thigh_right",
+			"thigh_left",
+			"chest"
+		]
+	},
+	"equipment_slots": {
+		"primary_weapon": {
+			"max_size": "large",
+			"description": "Main weapon"
+		},
+		"secondary_weapon": {
+			"max_size": "medium",
+			"description": "Backup weapon"
+		},
+		"sidearm": {
+			"max_size": "small",
+			"description": "Emergency sidearm"
+		}
+	}
+}

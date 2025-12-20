@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhubmainscene"]
+
+[ext_resource type="Script" path="res://scenes/hub/hub.gd" id="1_hub"]
+[ext_resource type="PackedScene" uid="uid://cj1jmhvtogtkf" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/action_npc.gd" id="3_action_npc"]
+[ext_resource type="Script" path="res://scenes/hub/hub_spawn_point.gd" id="4_spawn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(50, 0.1, 50)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_npc"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_interact"]
+radius = 3.0
+
+[node name="Hub" type="Node3D"]
+script = ExtResource("1_hub")
+player_scene = ExtResource("2_player")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="SpawnPoint1" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
+script = ExtResource("4_spawn")
+
+[node name="SpawnPoint2" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+script = ExtResource("4_spawn")
+
+[node name="SpawnPoint3" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 0)
+script = ExtResource("4_spawn")
+
+[node name="SpawnPoint4" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5)
+script = ExtResource("4_spawn")
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="MissionGiver" type="CharacterBody3D" parent="NPCs" groups=["interactable", "npcs"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.5, 0)
+script = ExtResource("3_action_npc")
+npc_name = "Mission Control"
+dialogue_tree_id = "mission_giver_main"
+interaction_prompt = "Press E to view missions"
+entity_id = "mission_control"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/MissionGiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_npc")
+
+[node name="InteractionArea" type="Area3D" parent="NPCs/MissionGiver"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/MissionGiver/InteractionArea"]
+shape = SubResource("SphereShape3D_interact")
+
+[node name="VendorNPC" type="CharacterBody3D" parent="NPCs" groups=["interactable", "npcs"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.5, 0)
+script = ExtResource("3_action_npc")
+npc_name = "Equipment Vendor"
+dialogue_tree_id = "vendor_equipment"
+interaction_prompt = "Press E to shop"
+entity_id = "equipment_vendor"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/VendorNPC"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_npc")
+
+[node name="InteractionArea" type="Area3D" parent="NPCs/VendorNPC"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/VendorNPC/InteractionArea"]
+shape = SubResource("SphereShape3D_interact")
+
+[node name="Navigation" type="Node3D" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation"]
+
+[node name="UI" type="CanvasLayer" parent="."]

@@ -1,0 +1,129 @@
+[gd_scene load_steps=16 format=3 uid="uid://cj1jmhvtogtkf"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/action_player.gd" id="1_player"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/combat_component.gd" id="2_combat"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/network_identity.gd" id="3_network"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/states/entity_state_manager.gd" id="4_states"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/player_camera.gd" id="5_camera"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/player_nametag.gd" id="6_nametag"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/player_animation_controller.gd" id="7_anim_ctrl"]
+[ext_resource type="PackedScene" uid="uid://byvgrhjay0ymc" path="res://3d_models/player_character/test.glb" id="8_model"]
+[ext_resource type="Script" path="res://scenes/player/player_visuals.gd" id="9_visuals"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/procedural_body_turn.gd" id="10_body_turn"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/action_entities/scripts/procedural_ik_controller.gd" id="11_ik"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/equipment_manager.gd" id="12_equip"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_hud.gd" id="15_weapon_hud"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_attachment_setup.gd" id="17_attach_setup"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_main"]
+radius = 0.35
+height = 1.7
+
+[node name="Player" type="CharacterBody3D" groups=["players"]]
+script = ExtResource("1_player")
+entity_id = "player"
+base_move_speed = 6.0
+acceleration = 50.0
+deceleration = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("CapsuleShape3D_main")
+
+[node name="MeshRoot" type="Node3D" parent="."]
+script = ExtResource("9_visuals")
+
+[node name="CharacterModel" parent="MeshRoot" instance=ExtResource("8_model")]
+
+[node name="Skeleton3D" parent="MeshRoot/CharacterModel/root" index="0"]
+bones/1/rotation = Quaternion(-0.0752136, 1.40985e-06, 1.06341e-07, 0.997167)
+bones/2/rotation = Quaternion(0.10769, 1.11495e-13, -2.63712e-14, 0.994184)
+bones/3/rotation = Quaternion(0.0922208, 6.63103e-21, -2.31176e-21, 0.995739)
+bones/4/rotation = Quaternion(0.173719, 1.07514e-22, -5.37571e-23, 0.984795)
+bones/5/rotation = Quaternion(-0.295111, 1.10814e-22, 9.69626e-23, 0.955463)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(-0.475693, -0.0713496, -0.0453917, 0.875537)
+bones/7/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(1.46655e-08, 1.17324e-07, 0.176427, 0.984314)
+bones/10/rotation = Quaternion(1.73486e-07, 0.0175429, 8.88315e-16, 0.999846)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(0.558839, 0.558839, 0.433242, -0.433242)
+bones/13/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(2.64926e-08, -4.30505e-08, -0.176427, 0.984314)
+bones/16/rotation = Quaternion(1.59746e-07, -0.0175424, -1.67664e-08, 0.999846)
+bones/17/rotation = Quaternion(-0.12765, -0.0238715, 0.0485246, 0.990344)
+bones/17/scale = Vector3(1, 1, 1)
+bones/18/rotation = Quaternion(0.71189, 0.0859094, 0.69516, 0.050837)
+bones/18/scale = Vector3(1, 1, 1.00001)
+bones/20/rotation = Quaternion(3.85673e-07, 3.14012e-07, 0.161343, 0.986898)
+bones/21/rotation = Quaternion(0.236208, 0.639514, -0.260019, 0.683826)
+bones/21/scale = Vector3(1, 1, 1)
+bones/22/scale = Vector3(1, 1, 1)
+bones/24/scale = Vector3(1, 1, 1)
+bones/27/rotation = Quaternion(0.236208, -0.639514, 0.260019, 0.683826)
+bones/27/scale = Vector3(1, 1, 1)
+bones/28/rotation = Quaternion(-0.000208802, 0.938307, 0.345802, -0.000565272)
+bones/28/scale = Vector3(1, 1, 1)
+
+[node name="AnimationController" type="Node" parent="."]
+script = ExtResource("7_anim_ctrl")
+idle_anim = "Idle"
+walk_anim = "Walk"
+
+[node name="PlayerCamera" type="Node3D" parent="."]
+script = ExtResource("5_camera")
+
+[node name="StateManager" type="Node" parent="."]
+script = ExtResource("4_states")
+
+[node name="Combat" type="Node" parent="."]
+script = ExtResource("2_combat")
+
+[node name="NetworkIdentity" type="Node" parent="."]
+script = ExtResource("3_network")
+
+[node name="Nametag" type="Node3D" parent="."]
+script = ExtResource("6_nametag")
+
+[node name="BodyTurn" type="Node3D" parent="."]
+script = ExtResource("10_body_turn")
+mesh_root = NodePath("../MeshRoot")
+max_turn_angle = 20.0
+turn_speed = 10.0
+strafe_lean = 3.0
+
+[node name="IKController" type="Node3D" parent="."]
+script = ExtResource("11_ik")
+enable_foot_ik = false
+enable_look_at = false
+enable_strafe_ik = false
+hip_twist_amount = 25.0
+foot_angle_amount = 45.0
+
+[node name="EquipmentManager" type="Node" parent="."]
+script = ExtResource("12_equip")
+
+[node name="WeaponAttachmentSetup" type="Node" parent="."]
+script = ExtResource("17_attach_setup")
+skeleton_path = NodePath("../MeshRoot/CharacterModel/root/Skeleton3D")
+rifle_lowered_offset = Vector3(0.2, -0.1, 0.4)
+rifle_lowered_rotation = Vector3(-20, 180, 0)
+rifle_ready_offset = Vector3(0.15, 0.0, 0.4)
+rifle_ready_rotation = Vector3(-10, 180, 0)
+rifle_aim_offset = Vector3(0.0, 0.12, 0.4)
+rifle_aim_rotation = Vector3(0, 180, 0)
+pistol_lowered_offset = Vector3(0.2, -0.15, 0.25)
+pistol_lowered_rotation = Vector3(-40, 180, 0)
+pistol_ready_offset = Vector3(0.15, -0.05, 0.3)
+pistol_ready_rotation = Vector3(-15, 180, 0)
+pistol_aim_offset = Vector3(0.0, 0.12, 0.35)
+pistol_aim_rotation = Vector3(0, 180, 0)
+lowered_ik_blend = 0.3
+ready_ik_blend = 0.6
+aim_ik_blend = 0.9
+
+[node name="WeaponHUD" type="CanvasLayer" parent="."]
+script = ExtResource("15_weapon_hud")
+
+[editable path="MeshRoot/CharacterModel"]

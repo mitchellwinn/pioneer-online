@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://energy_pistol_prefab"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_component.gd" id="1_weapon"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pistol"]
+albedo_color = Color(0.25, 0.25, 0.3, 1)
+metallic = 0.7
+roughness = 0.35
+emission_enabled = true
+emission = Color(0.0, 0.8, 0.6, 1)
+emission_energy_multiplier = 0.2
+
+[node name="EnergyPistol" type="Node3D"]
+script = ExtResource("1_weapon")
+item_id = "energy_pistol_01"
+weapon_name = "Sidearm"
+damage = 15.0
+damage_type = "energy"
+fire_rate = 5.0
+fire_mode = "semi"
+effective_range = 50.0
+clip_size = 12
+max_ammo = 60
+reload_type = "magazine"
+reload_time = 1.5
+projectile_path = "res://prefabs/projectiles/energy_bolt.tscn"
+muzzle_velocity = 120.0
+spread_hip = 2.0
+spread_aim = 0.3
+recoil_vertical = 3.0
+recoil_horizontal = 1.0
+aim_zoom = 1.2
+aim_time = 0.15
+
+[node name="WeaponModel" type="Node3D" parent="."]
+
+[node name="Slide" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.03)
+material_override = SubResource("StandardMaterial3D_pistol")
+size = Vector3(0.03, 0.05, 0.15)
+
+[node name="Frame" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+material_override = SubResource("StandardMaterial3D_pistol")
+size = Vector3(0.025, 0.04, 0.12)
+
+[node name="Grip" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(0.966, 0, 0.259, 0, 1, 0, -0.259, 0, 0.966, 0, -0.06, 0.04)
+material_override = SubResource("StandardMaterial3D_pistol")
+size = Vector3(0.025, 0.08, 0.03)
+
+[node name="Barrel" type="CSGCylinder3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.02, -0.13)
+material_override = SubResource("StandardMaterial3D_pistol")
+radius = 0.008
+height = 0.05
+
+[node name="Trigger" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0.01)
+material_override = SubResource("StandardMaterial3D_pistol")
+size = Vector3(0.005, 0.02, 0.015)
+
+[node name="TriggerGuard" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045, 0.005)
+material_override = SubResource("StandardMaterial3D_pistol")
+size = Vector3(0.003, 0.01, 0.04)
+
+[node name="GripPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0.04)
+
+[node name="AimPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.05)
+
+[node name="MuzzlePoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.16)
+

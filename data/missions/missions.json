@@ -1,0 +1,80 @@
+{
+  "survey_planet": {
+    "name": "Survey Planet in Orbit",
+    "description": "Locate the Heavy Propulsion Surveillance Rod, retrieve its sample payload, and find clear weather for orbital extraction.",
+    "difficulty": "normal",
+    "min_players": 1,
+    "max_players": 4,
+    "scene_path": "res://scenes/missions/survey_planet.tscn",
+    "objectives": [
+      {"id": "find_rod", "type": "locate", "target": "surveillance_rod", "description": "Locate the Surveillance Rod"},
+      {"id": "retrieve_payload", "type": "interact", "target": "sample_payload", "description": "Retrieve sample payload"},
+      {"id": "find_extraction", "type": "reach_zone", "target": "clear_weather_zone", "description": "Find clear weather for extraction"},
+      {"id": "extract", "type": "interact", "target": "orbital_uplink", "description": "Establish orbital uplink"}
+    ],
+    "rewards": {
+      "currency": 500,
+      "exp": 100
+    },
+    "special_items": ["scanner"],
+    "weather_dynamic": true,
+    "time_limit_minutes": 30
+  },
+
+  "rescue_operative": {
+    "name": "Rescue Operative",
+    "description": "Deploy as a Combat Medic. Heal and resurrect operatives from other squads to earn Medic Credits.",
+    "difficulty": "normal",
+    "min_players": 1,
+    "max_players": 4,
+    "scene_path": "res://scenes/missions/rescue_operative.tscn",
+    "role": "medic",
+    "objectives": [
+      {"id": "deploy", "type": "auto", "description": "Deploy to surface"},
+      {"id": "assist", "type": "ongoing", "description": "Assist other squads (optional)"},
+      {"id": "extract", "type": "reach_zone", "target": "extraction_point", "description": "Extract when ready"}
+    ],
+    "rewards": {
+      "currency": 200,
+      "exp": 50
+    },
+    "bonus_rewards": {
+      "heal_other_squad": {"medic_credits": 10, "currency": 25},
+      "revive_other_squad": {"medic_credits": 100, "currency": 250}
+    },
+    "granted_abilities": ["quick_heal", "combat_stim", "emergency_revive"],
+    "granted_items": ["medic_badge", "extra_medkits"]
+  },
+
+  "deep_extraction": {
+    "name": "Deep Extraction Mandate",
+    "description": "Descend into planet caverns via Heavy Bore Drill. Extract rare minerals and creature drops. High risk, high reward.",
+    "difficulty": "hard",
+    "min_players": 1,
+    "max_players": 4,
+    "scene_path": "res://scenes/missions/deep_extraction.tscn",
+    "objectives": [
+      {"id": "find_drill", "type": "locate", "target": "bore_drill", "description": "Locate the Heavy Bore Drill"},
+      {"id": "descend", "type": "interact", "target": "drill_elevator", "description": "Descend into caverns"},
+      {"id": "extract_loot", "type": "ongoing", "description": "Gather resources (optional)"},
+      {"id": "escape", "type": "reach_zone", "target": "drill_shaft", "description": "Return to drill shaft before timer expires"}
+    ],
+    "rewards": {
+      "currency": 300,
+      "exp": 150
+    },
+    "loot_tables": {
+      "minerals": ["iron_ore", "copper_ore", "rare_earth_crystals", "luminite", "void_stone"],
+      "creature_drops": ["chitin_plating", "bioluminescent_gland", "predator_fang", "carapace_fragment"]
+    },
+    "depth_scaling": {
+      "enabled": true,
+      "depth_levels": ["upper_caverns", "mid_caverns", "deep_caverns", "abyss"],
+      "loot_multiplier_per_depth": 1.5,
+      "danger_multiplier_per_depth": 2.0
+    },
+    "time_limit_minutes": 25,
+    "drill_closes_after_minutes": 20
+  }
+}
+
