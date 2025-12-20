@@ -25,10 +25,11 @@ NetworkManager="*res://addons/gsg-godot-plugins/network_manager/network_manager.
 ZoneManager="*res://addons/gsg-godot-plugins/zone_manager/zone_manager.gd"
 SteamManager="*res://addons/gsg-godot-plugins/steam_manager/steam_manager.gd"
 SoundManager="*res://addons/gsg-godot-plugins/sound_manager/sound_manager.gd"
+GameManager="*res://scripts/game_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gsg-godot-plugins/action_entities/plugin.cfg", "res://addons/gsg-godot-plugins/database_manager/plugin.cfg", "res://addons/gsg-godot-plugins/item_system/plugin.cfg", "res://addons/gsg-godot-plugins/music_manager/plugin.cfg", "res://addons/gsg-godot-plugins/network_manager/plugin.cfg", "res://addons/gsg-godot-plugins/sound_manager/plugin.cfg", "res://addons/gsg-godot-plugins/steam_manager/plugin.cfg", "res://addons/gsg-godot-plugins/zone_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/gsg-godot-plugins/action_entities/plugin.cfg", "res://addons/gsg-godot-plugins/database_manager/plugin.cfg", "res://addons/gsg-godot-plugins/item_system/plugin.cfg", "res://addons/gsg-godot-plugins/music_manager/plugin.cfg", "res://addons/gsg-godot-plugins/network_manager/plugin.cfg", "res://addons/gsg-godot-plugins/sound_manager/plugin.cfg", "res://addons/gsg-godot-plugins/steam_manager/plugin.cfg", "res://addons/gsg-godot-plugins/zone_manager/plugin.cfg")
 
 [rendering]
 

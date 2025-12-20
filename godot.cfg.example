@@ -1,0 +1,10 @@
+# Godot Executable Path Configuration
+# 
+# Copy this file to 'godot.cfg' (without .example) and set your Godot executable path.
+# This file is gitignored, so your local path won't be committed.
+#
+# Example:
+# G:\tools\engines\godot\v4.3\Godot_v4.3-stable_win64.exe
+# C:\Program Files\Godot\Godot_v4.3-stable_win64.exe
+# D:\Games\Godot\Godot_v4.3-stable_win64.exe
+
