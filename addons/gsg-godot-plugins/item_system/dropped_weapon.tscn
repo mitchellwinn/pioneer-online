@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dropped_weapon_prefab"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/dropped_weapon.gd" id="1_script"]
+
+[node name="DroppedWeapon" type="RigidBody3D"]
+collision_layer = 128
+collision_mask = 1
+script = ExtResource("1_script")
+
+
+

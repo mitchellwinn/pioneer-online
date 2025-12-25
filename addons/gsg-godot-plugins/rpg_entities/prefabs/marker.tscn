@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://7qrpqj53mcei"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/marker.gd" id="1_marker_script"]
+[ext_resource type="Texture2D" uid="uid://bb2sio7h5h0aw" path="res://images/overworld/marker.png" id="2_marker"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.466517, 1),
+"update": 0,
+"values": [0, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_marker"]
+_data = {
+"RESET": SubResource("Animation_reset"),
+"off": SubResource("Animation_pulse"),
+"on": SubResource("Animation_idle")
+}
+
+[node name="Marker" type="CharacterBody3D" node_paths=PackedStringArray("animator") groups=["marker"]]
+script = ExtResource("1_marker_script")
+animator = NodePath("AnimationPlayer")
+entity_id = "marker001"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.330448, 0)
+modulate = Color(1, 1, 1, 0.830888)
+billboard = 1
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_marker")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_marker")
+}
+speed_scale = 15.0

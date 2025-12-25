@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4t6tm3s1xfqn"]
+
+[ext_resource type="PackedScene" uid="uid://dyu0gmthhh3bt" path="res://addons/gsg-godot-plugins/rpg_entities/prefabs/entity.tscn" id="1_base"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/player_character.gd" id="1_sx7jh"]
+
+[node name="Player" instance=ExtResource("1_base")]
+collision_layer = 2
+script = ExtResource("1_sx7jh")
+entity_id = "player"
+
+[node name="InteractionArea" parent="." index="3"]
+collision_mask = 4
+
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_area_3d_area_exited"]
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_area_3d_body_exited"]

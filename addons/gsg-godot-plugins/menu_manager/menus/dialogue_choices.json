@@ -1,0 +1,58 @@
+{
+	"window_name": "dialogue_choices",
+	"window_script": "res://scripts/windows/dialogue_choices_window.gd",
+	"is_dropdown": false,
+	"show_background": true,
+	"custom_size": {
+		"x": 240,
+		"y": 120
+	},
+	"container_type": "VBox",
+	"layout_config": {
+		"spacing": 5,
+		"size_flags_horizontal": 3,
+		"size_flags_vertical": 3
+	},
+	"position_strategy": {
+		"type": "bottom_right_corner",
+		"margin_right": 25,
+		"margin_bottom": 30
+	},
+	"window_behavior": {
+		"closable_via_back": false,
+		"auto_focus_on_open": true,
+		"close_parent_on_open": false
+	},
+	"margins": {
+		"left": 15,
+		"right": 15,
+		"top": 15,
+		"bottom": 15
+	},
+	"custom_elements": [
+		{
+			"type": "ScrollContainer",
+			"name": "ChoicesScrollContainer",
+			"properties": {
+				"horizontal_scroll_mode": 3,
+				"vertical_scroll_mode": 3,
+				"size_flags_horizontal": 3,
+				"size_flags_vertical": 3,
+				"clip_contents": true,
+				"follow_focus": true
+			},
+			"children": [
+				{
+					"type": "VBoxContainer",
+					"name": "ChoicesContainer",
+					"properties": {
+						"size_flags_horizontal": 3,
+						"size_flags_vertical": 3,
+						"alignment": 0,
+						"theme_override_constants/separation": 8
+					}
+				}
+			]
+		}
+	]
+}

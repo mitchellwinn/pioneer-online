@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://cnu2svmijgsg8"]
+
+[ext_resource type="PackedScene" uid="uid://dyu0gmthhh3bt" path="res://addons/gsg-godot-plugins/rpg_entities/prefabs/entity.tscn" id="1_entity"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/npc.gd" id="2_npc_script"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_manager.gd" id="4_state_manager"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_idle.gd" id="5_state_idle"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_follow.gd" id="6_state_follow"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_wander.gd" id="7_state_wander"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_patrol.gd" id="8_state_patrol"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_aggro.gd" id="9_state_aggro"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_retreat_inside.gd" id="10_state_retreat"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_hide.gd" id="11_state_hide"]
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/rpg_entities/scripts/states/npc_state_die.gd" id="12_state_die"]
+
+[node name="NPC" instance=ExtResource("1_entity")]
+collision_layer = 4
+script = ExtResource("2_npc_script")
+dialogue = ""
+troop = ""
+look_at_player = false
+animates = true
+initial_state = "idle"
+wander_radius = 5.0
+wander_wait_min = 2.0
+wander_wait_max = 5.0
+run_detection_radius = 3.0
+walk_detection_radius = 1.5
+fov_angle = 90.0
+fov_scan_speed = 2.0
+detection_chance = 0.05
+chase_speed = 4.0
+max_chase_distance = 0.0
+max_stray_distance = 0.0
+
+[node name="StateManager" type="Node" parent="." index="4"]
+script = ExtResource("4_state_manager")
+
+[node name="idle" type="Node" parent="StateManager" index="0"]
+script = ExtResource("5_state_idle")
+
+[node name="follow" type="Node" parent="StateManager" index="1"]
+script = ExtResource("6_state_follow")
+follow_distance = 0.4
+run_distance = 2.0
+player_move_threshold = 0.1
+nav_update_cooldown = 0.2
+
+[node name="wander" type="Node" parent="StateManager" index="2"]
+script = ExtResource("7_state_wander")
+
+[node name="patrol" type="Node" parent="StateManager" index="3"]
+script = ExtResource("8_state_patrol")
+
+[node name="aggro" type="Node" parent="StateManager" index="4"]
+script = ExtResource("9_state_aggro")
+contact_distance = 0.3
+nav_update_cooldown = 0.2
+target_overshoot = 0.2
+
+[node name="retreat_inside" type="Node" parent="StateManager" index="5"]
+script = ExtResource("10_state_retreat")
+
+[node name="hide" type="Node" parent="StateManager" index="6"]
+script = ExtResource("11_state_hide")
+
+[node name="die" type="Node" parent="StateManager" index="7"]
+script = ExtResource("12_state_die")
+
+[node name="NavigationAgent3D" parent="." index="5"]
+simplify_epsilon = 0.345

@@ -1,0 +1,48 @@
+{
+	"window_name": "dialogue",
+	"window_script": "res://scripts/windows/dialogue_window.gd",
+	"is_dropdown": false,
+	"show_background": true,
+	"custom_size": {
+		"x": 880,
+		"y": 100
+	},
+	"container_type": "HBox",
+	"layout_config": {
+		"spacing": 10,
+		"alignment": 0,
+		"size_flags_horizontal": 3,
+		"size_flags_vertical": 3
+	},
+	"position_strategy": {
+		"type": "bottom_overlay",
+		"width_percent": 0.92,
+		"y_offset": -40
+	},
+	"window_behavior": {
+		"closable_via_back": false,
+		"auto_focus_on_open": false,
+		"close_parent_on_open": false
+	},
+	"margins": {
+		"left": 10,
+		"right": 10,
+		"top": 10,
+		"bottom": 10
+	},
+	"custom_elements": [
+		{
+			"type": "RichTextLabel",
+			"name": "MessageLabel",
+			"properties": {
+				"bbcode_enabled": true,
+				"fit_content": true,
+				"scroll_active": false,
+				"size_flags_horizontal": 3,
+				"size_flags_vertical": 3,
+				"size_flags_stretch_ratio": 1.0,
+				"text": ""
+			}
+		}
+	]
+}

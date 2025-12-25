@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://weapon_attachment_points"]
+
+[ext_resource type="Script" path="res://addons/gsg-godot-plugins/item_system/weapon_attachment_config.gd" id="1_config"]
+
+[node name="WeaponAttachmentPoints" type="Node3D"]
+script = ExtResource("1_config")
+hand_grip_point = NodePath("HandGripPoint")
+back_primary_point = NodePath("BackPrimaryPoint")
+back_secondary_point = NodePath("BackSecondaryPoint")
+hip_right_point = NodePath("HipRightPoint")
+hip_left_point = NodePath("HipLeftPoint")
+thigh_right_point = NodePath("ThighRightPoint")
+thigh_left_point = NodePath("ThighLeftPoint")
+
+[node name="HandGripPoint" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.25, 1.1, -0.25)
+gizmo_extents = 0.1
+
+[node name="BackPrimaryPoint" type="Marker3D" parent="."]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, 0.1, 1.25, 0.1)
+gizmo_extents = 0.15
+
+[node name="BackSecondaryPoint" type="Marker3D" parent="."]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.1, 1.15, 0.1)
+gizmo_extents = 0.15
+
+[node name="HipRightPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.2, 0.9, 0.05)
+gizmo_extents = 0.08
+
+[node name="HipLeftPoint" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, -0.2, 0.9, 0.05)
+gizmo_extents = 0.08
+
+[node name="ThighRightPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.15, 0.6, 0.08)
+gizmo_extents = 0.06
+
+[node name="ThighLeftPoint" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, -0.15, 0.6, 0.08)
+gizmo_extents = 0.06
